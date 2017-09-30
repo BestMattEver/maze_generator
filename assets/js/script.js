@@ -9,29 +9,34 @@ var height1 = gameCanvas1.height;
 //this captures the click on the makeMaze button
 $("body").on('click',"#makeMaze", function(){
 	console.log("we clicked");
-	var cellsX = $("#cellsX").val();
-	var cellsY = $("#cellsY").val();
-	var cellSize = $("#cellSize").val();
+	//grab our inputs
+	var cellsX = parseInt($("#cellsX").val(), 10);
+	var cellsY = parseInt($("#cellsY").val(), 10);
+	var cellSize = parseInt($("#cellSize").val(), 10);
+	//make sure theyre reasonable...
+	if(cellsX > 35 ){cellsX = 35};
+	if(cellSize < 5){cellSize = 5};
+	if(cellsY > 35){cellsY = 35};
 
-	console.log(cellsX+","+cellsY+","+cellSize);
-var grid;
-if(!cellsX || !cellsY || !cellSize)
-{//if nothing is entered, use default values
-	//initialize the grid
-	grid = girdInit(20,25,25);
-}
-else
-{//otherwise use whatever they entered
-	//initialize the grid
-	grid = girdInit(cellSize,cellsX,cellsY);
-}
+	//initizlize grid variable
+	var grid;
+	if(!cellsX || !cellsY || !cellSize)
+	{//if nothing is entered, use default values
+		console.log("missing info");
+		//initialize the grid
+		grid = girdInit(20,30,15);
+	}
+	else
+	{//otherwise use whatever they entered
+		console.log(cellsX+","+cellsY+","+cellSize);
+		//initialize the grid
+		grid = girdInit(cellSize,cellsX,cellsY);
+		//grid = girdInit(10,20,20);
+	}
 
-	//draw the gird
-	drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6", 0,0);
 //start carving...
-carve(grid, 0, 0, 20, -1, -1, false);
-
-//drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6",0,0);
+	carve(grid, 0, 0, 1, -1, -1, false);
+	drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6",0,0);
 //drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6");
 
 });//end makeMaze click
