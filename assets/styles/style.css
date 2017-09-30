@@ -6,3 +6,37 @@
   color: red;
   background: green;
 }
+.submitBtn{
+  color: white;
+  background: seagreen;
+  width: 150px;
+  height: 30px;
+  border-radius: 3px;
+  padding-top:5px;
+  text-align: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.submitBtn:hover{
+  box-sizing: border-box;
+  color: green;
+  background: seagreen;
+  width: 150px;
+  height: 30px;
+  border-radius: 3px;
+    padding-top:5px;
+  text-align: center;
+  vertical-align: middle;
+}
+.submitBtn:active{
+  box-sizing: border-box;
+  color: white;
+  background: seagreen;
+  width: 150px;
+  height: 30px;
+  border: 3px solid white;
+  border-radius: 3px;
+  padding-top:2px;
+  text-align: center;
+  vertical-align: middle;
+}

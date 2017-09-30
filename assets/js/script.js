@@ -1,20 +1,40 @@
 console.log("is js working?");
 
+//this sets up the canvas
 var gameCanvas1 = $("#gameCanvas1")[0];
-
 var context1 = gameCanvas1.getContext("2d");
 var width1 = gameCanvas1.width;
 var height1 = gameCanvas1.height;
 
-//initialize the grid
-var grid = girdInit(20,25,25);
-//draw the gird
-drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6", 0,0);
-//start carving...
-carve(grid, 0, 0, -1, -1, 1, false);
+//this captures the click on the makeMaze button
+$("body").on('click',"#makeMaze", function(){
+	console.log("we clicked");
+	var cellsX = $("#cellsX").val();
+	var cellsY = $("#cellsY").val();
+	var cellSize = $("#cellSize").val();
 
-drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6",0,0);
+	console.log(cellsX+","+cellsY+","+cellSize);
+var grid;
+if(!cellsX || !cellsY || !cellSize)
+{//if nothing is entered, use default values
+	//initialize the grid
+	grid = girdInit(20,25,25);
+}
+else
+{//otherwise use whatever they entered
+	//initialize the grid
+	grid = girdInit(cellSize,cellsX,cellsY);
+}
+
+	//draw the gird
+	drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6", 0,0);
+//start carving...
+carve(grid, 0, 0, 20, -1, -1, false);
+
+//drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6",0,0);
 //drawGrid(grid, '#ff00ff', "#0b175b", "#2b43c6");
+
+});//end makeMaze click
 
 function carve(grid, sX, sY, speed, prevX, prevY, debugsOn)
 {
@@ -115,7 +135,13 @@ function carve(grid, sX, sY, speed, prevX, prevY, debugsOn)
 		{
 			var last = carve.path.pop(); //this pops the last cell off of the path stack to use as the previous cell in the carve call.
 
-			carve(grid, prevX, prevY, 1, last.indexX, last.indexY, debugsOn);
+			try{//honestly not sure why i need this. but without it the thing throws an error
+				carve(grid, prevX, prevY, 1, last.indexX, last.indexY, debugsOn);
+			}
+			catch(e){
+				console.log(e);
+				//return
+			}
 		}
 		else//if no unvisited cells are found, end recursion. we're done!
 		{return;}
